@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:ital,wght@0,100..900;1,100..900&display=swap');
+
 html {
     background: linear-gradient(177.52deg, #4574E3 2.11%, #154580 81.34%);
     background-repeat: no-repeat;
@@ -5,11 +8,12 @@ html {
 }
 
 body {
-    font-family: 'Montserrat', 'sans-serif', 'Mansalva', cursive;
+    font-family: "Montserrat";
 }
 
-h2, footer {
-    font-family: 'Mansalva';
+h2,
+footer {
+    font-family: "Azeret Mono";
 }
 
 button {
@@ -17,7 +21,7 @@ button {
 }
 
 .itens-comprados {
-text-decoration: line-through;
+    text-decoration: line-through;
 }
 
 .borda-lista {
@@ -35,4 +39,3 @@ input {
     background: none;
     color: black;
 }
-
