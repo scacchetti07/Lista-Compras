@@ -31,6 +31,11 @@ function salvarItem() {
     listaDeItens.push({
         nomeItem: comprasItem.charAt(0).toUpperCase() + comprasItem.slice(1)
     });
+
+    // Limpa o input e coloca o cursor em foco nesse input.
+    itensInput.value = '';
+    itensInput.focus();
+
 }
 
 function mostrarItem() {
