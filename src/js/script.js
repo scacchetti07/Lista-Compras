@@ -51,7 +51,13 @@ function mostrarItem() {
             ultItensComprados.appendChild(criarComprados(elem.nomeItem, index)); // Cria um item comprado dos itens adicionados, e coloca na outra <ul>
             return;            
         }
-        ulItens.appendChild(criarListaDeCompras(elem.nomeItem, index)); // Cria um novo item no HTML e adiciona a <ul>
+        const li = criarListaDeCompras(elem.nomeItem, index); // Cria um novo item <li>
+
+        li.childNodes[0].lastChild.disabled = index !== parseInt(idxEditItem) ? true : false; // Define se o input é habilitado ou não se baseando na diferença do index e do item que está sendo editado.
+        const icons = (index === parseInt(idxEditItem)) ? li.childNodes[1].childNodes[1] : li.childNodes[1].firstChild; // Define qual icone irá aparecer na tela se baseando na igual do index do item e do qual ele quer editar.
+        icons.style.display = "none"; // Quando um deles forem definidos, o seu display é 'none' para ocultar a sua visibilidade quando não for necessário.
+
+        ulItens.appendChild(li); // Adiciona o novo item <li> no HTML e adiciona a <ul>
     });
     
     
@@ -77,7 +83,7 @@ function mostrarItem() {
     const editarItems = document.querySelectorAll(".editar");
     editarItems.forEach(btn => {
         btn.addEventListener('click', (item) => {
-            idxEditItem = (item.target.parentElement.parentElement).getAttribute('data-value'); // Pega o index do objeto armazenada na tag <li>
+            idxEditItem = (item.target.parentElement.parentElement).getAttribute('data-value'); // Pega o index em string do objeto armazenada na tag <li>
             mostrarItem();
         })
     })
@@ -90,13 +96,13 @@ function mostrarItem() {
 
 function salvarEdicao() {
     const itemEditado = document.querySelector(`[data-value="${idxEditItem}"] input[type="text"]`);
-    if (itemEditado === null) {
-        alert("Tente editar um item antes de salvar.")
+    if (itemEditado.value === "") {
+        alert("O item precisa ter um nome. Tente Novamente!")
         return;
     }
     listaDeItens[idxEditItem].nomeItem = itemEditado.value; // Altera no objeto o nome do item modificado
-    idxEditItem = -1; // Define a posição que foi alterada para -1, reiniciando a contagem para um novo elemento. 
-    mostrarItem(); // Faz com que o item ao ter a caixa clicada, ele mude no HTML a visualização.  
+    idxEditItem = -1; // Define a posição que foi alterada para -1, reiniciando a contagem para um novo 
+    mostrarItem();
 }
 
 

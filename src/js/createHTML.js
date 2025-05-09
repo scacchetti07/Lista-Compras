@@ -20,6 +20,7 @@ export function criarListaDeCompras(itemName, data) {
     inputItem.className = "is-size-5";
     inputItem.type = "text";
     inputItem.value = itemName;
+    inputItem.disabled = true;
 
     // Definindo icone de exclusão do item
     icon.className = "fa-solid fa-trash is-clickable deletar";
