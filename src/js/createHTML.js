@@ -1,5 +1,5 @@
 // Irá criar o HTML da li Lista de Compras pelo JS
-export function criarListaDeCompras(itemName = '', data) {
+export function criarListaDeCompras(itemName, data) {
     // Definindo tags
     const li = document.createElement("li");
     const divItem = document.createElement("div");
@@ -40,13 +40,13 @@ export function criarListaDeCompras(itemName = '', data) {
 }
 
 // Irá criar o HTML da li Comprados pelo JS
-export function criarComprados(data) {
-    const li_lista = criarListaDeCompras(data);
+export function criarComprados(itemName, data) {
+    const li_lista = criarListaDeCompras(itemName, data);
     const span = document.createElement('span');
     const divItem = li_lista.childNodes[0];
     // Adicionando classe ao span
     span.className = "itens-comprados is-size-5";
-
+    span.textContent = itemName;
 
     // Alterando divItem do li
     divItem.removeChild(divItem.lastChild);
