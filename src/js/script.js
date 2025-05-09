@@ -55,13 +55,23 @@ function mostrarItem() {
     
     
     const inputsCheck = document.querySelectorAll('input[type="checkbox"]') // seleciona todos os inputs do tipo checkbox existentes no html.
-    inputsCheck.forEach(input => {
-        input.addEventListener('click', (item) => {
+    const deletarObjetos = document.querySelectorAll(".deletar"); // Referenciando o icone de lixeira para excluir os itens pela classe.
+
+    inputsCheck.forEach(check => {
+        check.addEventListener('click', (item) => {
             const idxItem = (item.target.parentElement.parentElement).getAttribute('data-value'); // Pega o index do objeto armazenada na tag <li>
             listaDeItens[idxItem].check = item.target.checked; // Altera o valor da propriedade check a partir do index especificado, de acordo com o clique do usuário...
             mostrarItem(); // Faz com que o item ao ter a caixa clicada, ele mude no HTML a visualização.  
         });
     });
+
+    deletarObjetos.forEach(btn => {
+        btn.addEventListener('click', (item) => {
+            const idxItem = (item.target.parentElement.parentElement).getAttribute('data-value'); // Pega o index do objeto armazenada na tag <li>
+            listaDeItens.splice(idxItem, 1); // Remove N elementos de uma array a partir de uma posição definida, e se necessário adiciona também.
+            mostrarItem(); // Faz com que o item ao ter a caixa clicada, ele mude no HTML a visualização.  
+        })
+    })
 }
 
 // Essa função irá limpar todos os Childs existentes na lista
