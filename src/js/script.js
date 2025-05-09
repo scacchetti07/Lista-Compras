@@ -42,15 +42,15 @@ function salvarItem() {
 
 function mostrarItem() {
     limparLista(ulItens); // a chamada desse método impede que os itens sejam inseridos 2x no HTML
-    limparLista(ultItensComprados);
+    limparLista(ultItensComprados); // a chamada desse método impede que os itens sejam inseridos multiplicamente no HTML
 
     // foreach() => método para manipular elementos dentro de uma array (método callback)
     listaDeItens.forEach((elem, index) => {
         if (elem.check) {
-            ultItensComprados.appendChild(criarComprados(elem.nomeItem, index));
+            ultItensComprados.appendChild(criarComprados(elem.nomeItem, index)); // Cria um item comprado dos itens adicionados, e coloca na outra <ul>
             return;            
         }
-        ulItens.appendChild(criarListaDeCompras(elem.nomeItem, index));
+        ulItens.appendChild(criarListaDeCompras(elem.nomeItem, index)); // Cria um novo item no HTML e adiciona a <ul>
     });
     
     
@@ -59,7 +59,7 @@ function mostrarItem() {
         input.addEventListener('click', (item) => {
             const idxItem = (item.target.parentElement.parentElement).getAttribute('data-value'); // Pega o index do objeto armazenada na tag <li>
             listaDeItens[idxItem].check = item.target.checked; // Altera o valor da propriedade check a partir do index especificado, de acordo com o clique do usuário...
-            mostrarItem();
+            mostrarItem(); // Faz com que o item ao ter a caixa clicada, ele mude no HTML a visualização.  
         });
     });
 }
