@@ -69,7 +69,7 @@ function criarIcones(container) {
     const iconeSalvar = document.createElement("i");
     const iconeEditar = document.createElement("i");
 
-    iconeSalvar.className = "fa-regular fa-floppy-disk is-clickable";
+    iconeSalvar.className = "fa-regular fa-floppy-disk is-clickable salvar";
     iconeEditar.className = "fa-regular is-clickable fa-pen-to-square editar";
 
     container.appendChild(iconeSalvar);

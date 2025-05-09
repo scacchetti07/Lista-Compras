@@ -1,6 +1,7 @@
 import { criarListaDeCompras, criarComprados } from './createHTML.js';
 
 let listaDeItens = []
+let idxEditItem; // Variável que irá armazenar o atual index do item que está sendo editado
 
 const form = document.getElementById("form-itens");
 const itensInput = document.getElementById("receber-item");
@@ -55,8 +56,7 @@ function mostrarItem() {
     
     
     const inputsCheck = document.querySelectorAll('input[type="checkbox"]') // seleciona todos os inputs do tipo checkbox existentes no html.
-    const deletarObjetos = document.querySelectorAll(".deletar"); // Referenciando o icone de lixeira para excluir os itens pela classe.
-
+    
     inputsCheck.forEach(check => {
         check.addEventListener('click', (item) => {
             const idxItem = (item.target.parentElement.parentElement).getAttribute('data-value'); // Pega o index do objeto armazenada na tag <li>
@@ -64,7 +64,8 @@ function mostrarItem() {
             mostrarItem(); // Faz com que o item ao ter a caixa clicada, ele mude no HTML a visualização.  
         });
     });
-
+    
+    const deletarObjetos = document.querySelectorAll(".deletar"); // Referenciando o icone de lixeira para excluir os itens pela classe.
     deletarObjetos.forEach(btn => {
         btn.addEventListener('click', (item) => {
             const idxItem = (item.target.parentElement.parentElement).getAttribute('data-value'); // Pega o index do objeto armazenada na tag <li>
@@ -72,7 +73,32 @@ function mostrarItem() {
             mostrarItem(); // Faz com que o item ao ter a caixa clicada, ele mude no HTML a visualização.  
         })
     })
+
+    const editarItems = document.querySelectorAll(".editar");
+    editarItems.forEach(btn => {
+        btn.addEventListener('click', (item) => {
+            idxEditItem = (item.target.parentElement.parentElement).getAttribute('data-value'); // Pega o index do objeto armazenada na tag <li>
+            mostrarItem();
+        })
+    })
+
+    const salvarItems = document.querySelectorAll(".salvar");
+    salvarItems.forEach(btn => {
+        btn.addEventListener('click', salvarEdicao);
+    })
 }
+
+function salvarEdicao() {
+    const itemEditado = document.querySelector(`[data-value="${idxEditItem}"] input[type="text"]`);
+    if (itemEditado === null) {
+        alert("Tente editar um item antes de salvar.")
+        return;
+    }
+    listaDeItens[idxEditItem].nomeItem = itemEditado.value; // Altera no objeto o nome do item modificado
+    idxEditItem = -1; // Define a posição que foi alterada para -1, reiniciando a contagem para um novo elemento. 
+    mostrarItem(); // Faz com que o item ao ter a caixa clicada, ele mude no HTML a visualização.  
+}
+
 
 // Essa função irá limpar todos os Childs existentes na lista
 function limparLista(list) {
