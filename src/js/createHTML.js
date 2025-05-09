@@ -29,7 +29,8 @@ export function criarListaDeCompras(itemName, data) {
     divItem.appendChild(inputItem);
 
     // Adicionando o icone a divRemove
-    divRemove.appendChild(icon);
+    criarIcones(divRemove); // Icones Editar e Remover
+    divRemove.appendChild(icon); // Icone Lixeira
 
     // Adicionado as divs no li
     li.appendChild(divItem);
@@ -44,6 +45,8 @@ export function criarComprados(itemName, data) {
     const li_lista = criarListaDeCompras(itemName, data);
     const span = document.createElement('span');
     const divItem = li_lista.childNodes[0];
+    const divRemove = li_lista.childNodes[1];
+
     // Adicionando classe ao span
     span.className = "itens-comprados is-size-5";
     span.textContent = itemName;
@@ -53,5 +56,25 @@ export function criarComprados(itemName, data) {
     divItem.appendChild(span);
     divItem.firstChild.checked = true;
 
+    // Removendo Icones Editar e Salvar
+    divRemove.removeChild(divRemove.firstChild); // Excluí O icone salvar
+    divRemove.removeChild(divRemove.firstChild); // Exclui O icone editar
+
+
     return li_lista;
+}
+
+function criarIcones(container) {
+
+    const iconeSalvar = document.createElement("i");
+    const iconeEditar = document.createElement("i");
+
+    iconeSalvar.className = "fa-regular fa-floppy-disk is-clickable";
+    iconeEditar.className = "fa-regular is-clickable fa-pen-to-square editar";
+
+    container.appendChild(iconeSalvar);
+    container.appendChild(iconeEditar);
+
+    return container;
+
 }

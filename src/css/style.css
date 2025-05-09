@@ -20,6 +20,21 @@ button {
     border: none;
 }
 
+i {
+    margin: 5px;
+    text-align: center;
+    align-content: center;    
+    font-size: 15pt;
+    width: 32px;
+    height: 32px;
+}
+
+i:hover {
+    background-color: rgba(128, 128, 128, 0.281);
+    color: black;
+    border-radius: 10px;
+}
+
 .itens-comprados {
     text-decoration: line-through;
 }
