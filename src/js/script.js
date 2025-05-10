@@ -1,4 +1,5 @@
-import { criarListaDeCompras, criarComprados } from './createHTML.js';
+import { criarListaDeCompras, criarComprados} from './createHTML.js';
+import { adicionarNoLocalStorage } from './database.js';
 
 let listaDeItens = []
 let idxEditItem; // Variável que irá armazenar o atual index do item que está sendo editado
@@ -20,7 +21,7 @@ function adicionarItens(evento) {
 
 function salvarItem() {
     const comprasItem = itensInput.value;
-    
+
     // some() => Teste se pelo menos 1 dos valores de uma array ou objeto condizem a condição estabelecida. Retornando True ou False
     const checarDuplicado = listaDeItens.some((item) => item.nomeItem.toLowerCase() === comprasItem.toLowerCase());
 
@@ -28,7 +29,7 @@ function salvarItem() {
         alert(`O item ${comprasItem.toUpperCase()} já existe na lista. Tente Adicionar outro!`);
         return;
     }
-    
+
     // Atribuí o objeto com propriedade nomeItem para o Array listaDeItens
     listaDeItens.push({
         nomeItem: comprasItem.charAt(0).toUpperCase() + comprasItem.slice(1), // os métodos adicionados faz com que o item adicionado fique em "Capitalize" Case.
@@ -49,7 +50,7 @@ function mostrarItem() {
     listaDeItens.forEach((elem, index) => {
         if (elem.check) {
             ultItensComprados.appendChild(criarComprados(elem.nomeItem, index)); // Cria um item comprado dos itens adicionados, e coloca na outra <ul>
-            return;            
+            return;
         }
         const li = criarListaDeCompras(elem.nomeItem, index); // Cria um novo item <li>
 
@@ -59,10 +60,10 @@ function mostrarItem() {
 
         ulItens.appendChild(li); // Adiciona o novo item <li> no HTML e adiciona a <ul>
     });
-    
-    
+
+
     const inputsCheck = document.querySelectorAll('input[type="checkbox"]') // seleciona todos os inputs do tipo checkbox existentes no html.
-    
+
     inputsCheck.forEach(check => {
         check.addEventListener('click', (item) => {
             const idxItem = (item.target.parentElement.parentElement).getAttribute('data-value'); // Pega o index do objeto armazenada na tag <li>
@@ -70,7 +71,7 @@ function mostrarItem() {
             mostrarItem(); // Faz com que o item ao ter a caixa clicada, ele mude no HTML a visualização.  
         });
     });
-    
+
     const deletarObjetos = document.querySelectorAll(".deletar"); // Referenciando o icone de lixeira para excluir os itens pela classe.
     deletarObjetos.forEach(btn => {
         btn.addEventListener('click', (item) => {
@@ -78,7 +79,7 @@ function mostrarItem() {
             listaDeItens.splice(idxItem, 1); // Remove N elementos de uma array a partir de uma posição definida, e se necessário adiciona também.
             mostrarItem(); // Faz com que o item ao ter a caixa clicada, ele mude no HTML a visualização.  
         })
-    })
+    });
 
     const editarItems = document.querySelectorAll(".editar");
     editarItems.forEach(btn => {
@@ -86,12 +87,15 @@ function mostrarItem() {
             idxEditItem = (item.target.parentElement.parentElement).getAttribute('data-value'); // Pega o index em string do objeto armazenada na tag <li>
             mostrarItem();
         })
-    })
+    });
 
     const salvarItems = document.querySelectorAll(".salvar");
     salvarItems.forEach(btn => {
         btn.addEventListener('click', salvarEdicao);
-    })
+    });
+
+    adicionarNoLocalStorage(listaDeItens);
+
 }
 
 function salvarEdicao() {
