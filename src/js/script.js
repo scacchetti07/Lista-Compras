@@ -1,16 +1,23 @@
 import { criarListaDeCompras, criarComprados} from './createHTML.js';
-import { adicionarNoLocalStorage } from './database.js';
+import { getListaLocalStorage, adicionarNoLocalStorage } from './database.js';
 
-let listaDeItens = []
+let listaDeItens = [];
 let idxEditItem; // Variável que irá armazenar o atual index do item que está sendo editado
 
 const form = document.getElementById("form-itens");
 const itensInput = document.getElementById("receber-item");
 const ulItens = document.getElementById("lista-de-itens");
 const ultItensComprados = document.getElementById("itens-comprados");
+listaDeItens = getListaLocalStorage(listaDeItens)
 
 // Não é necessário colocar um id no botão se ele estiver dentro de uma tag form e sendo do tip "submit"
 form.addEventListener("submit", adicionarItens)
+
+// (valores omitidos, 0, null, NaN, undefined, "", false) << retornam false
+
+if (listaDeItens) {
+    mostrarItem()
+}
 
 function adicionarItens(evento) {
     // preventDefault() => faz com que o conteúdo se mantenha no formulário após o clique do botão.
